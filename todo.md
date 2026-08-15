@@ -12,3 +12,8 @@
 - [ ] Validate the repository-aware production build.
 - [ ] Obtain confirmation before pushing the project to GitHub.
 - [ ] Push the committed project and provide the Pages activation steps.
+
+# Deployment correction
+
+- [x] Configure client routing for the GitHub Pages repository subpath.
+- [ ] Rebuild, redeploy, and confirm the live site no longer resolves to the app’s 404 route.
