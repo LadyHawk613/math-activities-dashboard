@@ -5,12 +5,11 @@
 import { ArrowLeft, ArrowRight, BookOpen, Sparkles } from "lucide-react";
 import { useState } from "react";
 import MatchTheGraphActivity from "@/components/MatchTheGraphActivity";
+import RailBrandHeader from "@/components/RailBrandHeader";
 
 type WorkshopTopic = { title: string; code: string; color: "coral" | "blue" | "yellow" | "teal" };
 type WorkshopShelf = { title: string; note: string; topics: WorkshopTopic[] };
 type WorkshopActivity = { code: string; title: string; description: string; color: "coral" | "blue" | "yellow" | "teal" };
-
-const workshopMark = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663746785263/vqEdiYIDCATHBBCS.png";
 
 const workshopShelves: WorkshopShelf[] = [
   {
@@ -67,7 +66,7 @@ export default function Integrated3Workshop({ onBack }: { onBack: () => void }) 
     return (
       <main className="studio-shell workshop-shell">
         <aside className="rail rail-session" aria-label="Integrated Math 3 Workshop navigation">
-          <button className="brand-mark" onClick={onBack} aria-label="Return to Math Activity Hub"><img src={workshopMark} alt="Math Activity Hub compass star" /></button>
+          <RailBrandHeader onClick={onBack} />
           <div className="rail-line" />
           <button className="rail-back" onClick={() => setActiveTopic(null)}><ArrowLeft size={18} /><span>Back to Workshop</span></button>
         </aside>
@@ -101,7 +100,7 @@ export default function Integrated3Workshop({ onBack }: { onBack: () => void }) 
   return (
     <main className="studio-shell workshop-shell">
       <aside className="rail rail-session" aria-label="Integrated Math 3 Workshop navigation">
-        <button className="brand-mark" onClick={onBack} aria-label="Return to Math Activity Hub"><img src={workshopMark} alt="Math Activity Hub compass star" /></button>
+        <RailBrandHeader onClick={onBack} />
         <div className="rail-line" />
         <button className="rail-back" onClick={onBack}><ArrowLeft size={18} /><span>Back to Math Hub</span></button>
       </aside>

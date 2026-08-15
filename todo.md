@@ -68,3 +68,9 @@
 - [x] Add green feedback for correct graph-to-family placements after checking.
 - [x] Add red feedback for incorrect graph-to-family placements while keeping them revisable.
 - [x] Verify the feedback states and publish the improved activity to GitHub Pages.
+
+# Shared left-rail brand header
+
+- [x] Replace the white circular Workshop and activity icons with the full Math Activity Hub brand header.
+- [x] Apply one consistent left-rail header treatment across dashboard, Workshop, topic, and playable-activity pages.
+- [x] Verify the matching header and no-white-background treatment, then publish to GitHub Pages.
