@@ -49,3 +49,9 @@
 
 - [x] Rename the Algebra 1 menu label to Algebra.
 - [x] Verify and publish the revised label to GitHub Pages.
+
+# Polynomial Functions activity list
+
+- [x] Add an initial, ordered Polynomial Functions activity list to the Integrated Math 3 Workshop.
+- [x] Keep the new activity entries separate from unfinished-topic empty states.
+- [x] Verify Polynomial Functions navigation and publish the list to GitHub Pages.

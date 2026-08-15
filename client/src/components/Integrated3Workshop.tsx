@@ -7,6 +7,7 @@ import { useState } from "react";
 
 type WorkshopTopic = { title: string; code: string; color: "coral" | "blue" | "yellow" | "teal" };
 type WorkshopShelf = { title: string; note: string; topics: WorkshopTopic[] };
+type WorkshopActivity = { code: string; title: string; description: string; color: "coral" | "blue" | "yellow" | "teal" };
 
 const workshopMark = "https://files.manuscdn.com/user_upload_by_module/session_file/310519663746785263/vqEdiYIDCATHBBCS.png";
 
@@ -45,6 +46,15 @@ const workshopShelves: WorkshopShelf[] = [
   },
 ];
 
+const polynomialActivities: WorkshopActivity[] = [
+  { code: "P.01", title: "Polynomial Detective", description: "Notice degree, leading coefficient, and the clues that shape a polynomial’s graph.", color: "yellow" },
+  { code: "P.02", title: "Operations Workshop", description: "Add, subtract, and multiply polynomial expressions with a clear structure.", color: "coral" },
+  { code: "P.03", title: "Factor to Find Zeros", description: "Use factors to locate zeros and connect an equation to its x-intercepts.", color: "blue" },
+  { code: "P.04", title: "Graph Stories", description: "Trace end behavior, turning points, and intercepts to sketch a graph that makes sense.", color: "teal" },
+  { code: "P.05", title: "Solve Polynomial Equations", description: "Choose a useful solving strategy and check each solution in context.", color: "coral" },
+  { code: "P.06", title: "Model With a Polynomial", description: "Build and interpret a polynomial model from a real-world situation.", color: "yellow" },
+];
+
 export default function Integrated3Workshop({ onBack }: { onBack: () => void }) {
   const [activeTopic, setActiveTopic] = useState<WorkshopTopic | null>(null);
 
@@ -61,15 +71,28 @@ export default function Integrated3Workshop({ onBack }: { onBack: () => void }) 
             <button className="eyebrow-back" onClick={() => setActiveTopic(null)}><ArrowLeft size={14} />Integrated Math 3 Workshop</button>
             <p className="section-kicker">TOPIC ACTIVITY LIST · {activeTopic.code}</p>
             <h1>{activeTopic.title}.</h1>
-            <p className="topic-intro">This is your dedicated shelf for building confidence with this topic. Practice activities will gather here as you add them.</p>
+            <p className="topic-intro">{activeTopic.title === "Polynomial Functions" ? "Begin with these six activity outlines, then return to any idea that needs another look." : "This is your dedicated shelf for building confidence with this topic. Practice activities will gather here as you add them."}</p>
           </header>
-          <section className="activity-empty" aria-label={`${activeTopic.title} activity list`}> 
-            <div className="empty-mark"><BookOpen size={25} /></div>
-            <p className="section-kicker">YOUR ACTIVITY LIST</p>
-            <h2>This shelf is being stocked.</h2>
-            <p>There are no activities in <strong>{activeTopic.title}</strong> yet. When you create a practice activity, it will appear here for students to choose.</p>
-            <button className="primary-action" onClick={() => setActiveTopic(null)}>Browse another topic <ArrowRight size={17} /></button>
-          </section>
+          {activeTopic.title === "Polynomial Functions" ? (
+            <section className="polynomial-list" aria-label="Polynomial Functions activity list">
+              <div className="list-heading"><div><p className="section-kicker">YOUR FIRST ACTIVITY LIST</p><h2>Six ways in.</h2></div><p>Start with the first activity and move through the ideas in order, or return to any activity when you need another look.</p></div>
+              <div className="activity-list-grid">
+                {polynomialActivities.map((activity, index) => (
+                  <article className={`workshop-activity ${activity.color}`} key={activity.code}>
+                    <span className="activity-code">{activity.code}</span><span className="activity-sequence">{String(index + 1).padStart(2, "0")}</span>
+                    <h3>{activity.title}</h3><p>{activity.description}</p>
+                    <span className="activity-note"><BookOpen size={14} />Activity outline ready</span>
+                  </article>
+                ))}
+              </div>
+            </section>
+          ) : <section className="activity-empty" aria-label={`${activeTopic.title} activity list`}> 
+              <div className="empty-mark"><BookOpen size={25} /></div>
+              <p className="section-kicker">YOUR ACTIVITY LIST</p>
+              <h2>This shelf is being stocked.</h2>
+              <p>There are no activities in <strong>{activeTopic.title}</strong> yet. When you create a practice activity, it will appear here for students to choose.</p>
+              <button className="primary-action" onClick={() => setActiveTopic(null)}>Browse another topic <ArrowRight size={17} /></button>
+            </section>}
           <aside className="topic-margin-note"><Sparkles size={16} /><span>Future practice<br />belongs here.</span></aside>
         </section>
       </main>
