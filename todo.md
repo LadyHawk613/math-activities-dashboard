@@ -44,3 +44,8 @@
 
 - [x] Arrange the subject menu as Algebra, Geometry, Trigonometry, Integrated Math 1, Integrated Math 2, Integrated Math 3, Pre-Calculus, Calculus, and 4th Grade Math.
 - [x] Verify the matching reference order in the running site and publish it to GitHub Pages.
+
+# Algebra label update
+
+- [x] Rename the Algebra 1 menu label to Algebra.
+- [x] Verify and publish the revised label to GitHub Pages.
