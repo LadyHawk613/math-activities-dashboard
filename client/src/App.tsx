@@ -12,8 +12,8 @@ function AppRoutes() {
     <Switch>
       <Route path={"/"} component={Home} />
       <Route path={"/404"} component={NotFound} />
-      {/* Final fallback route */}
-      <Route component={NotFound} />
+      {/* GitHub Pages serves this single-page workbench from a repository subpath. */}
+      <Route component={Home} />
     </Switch>
   );
 }
