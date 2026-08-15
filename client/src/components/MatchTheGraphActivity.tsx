@@ -2,7 +2,7 @@
  * Tactile Number Studio — a warm, paper-based graph matching activity adapted from the user-provided game logic.
  * Students match graph cards to function-family trays through drag-and-drop or click-and-place interaction.
  */
-import { ArrowLeft, Check, Lightbulb, RotateCcw, Sparkles } from "lucide-react";
+import { ArrowLeft, Check, Lightbulb, RotateCcw, Sparkles, X } from "lucide-react";
 import { useMemo, useState } from "react";
 
 type FamilyId = "linear" | "quadratic" | "absolute" | "squareroot" | "exponential" | "cubic" | "cuberoot" | "logarithmic" | "rational-odd" | "rational-even";
@@ -68,6 +68,7 @@ export default function MatchTheGraphActivity({ onBack }: { onBack: () => void }
   const [placements, setPlacements] = useState<Partial<Record<FamilyId, FamilyId>>>({});
   const [selectedCard, setSelectedCard] = useState<FamilyId | null>(null);
   const [lockedTargets, setLockedTargets] = useState<Set<FamilyId>>(new Set());
+  const [checkedTargets, setCheckedTargets] = useState<Set<FamilyId>>(new Set());
   const [status, setStatus] = useState<{ kind: "" | "correct" | "incorrect"; text: string }>({ kind: "", text: "" });
   const [hintOpen, setHintOpen] = useState(false);
   const families = rounds[roundIndex];
@@ -79,6 +80,7 @@ export default function MatchTheGraphActivity({ onBack }: { onBack: () => void }
     setPlacements({});
     setSelectedCard(null);
     setLockedTargets(new Set());
+    setCheckedTargets(new Set());
     setStatus({ kind: "", text: "" });
     setHintOpen(false);
   }
@@ -97,6 +99,7 @@ export default function MatchTheGraphActivity({ onBack }: { onBack: () => void }
       return next;
     });
     setSelectedCard(null);
+    setCheckedTargets(new Set());
     setStatus({ kind: "", text: "" });
   }
 
@@ -107,20 +110,23 @@ export default function MatchTheGraphActivity({ onBack }: { onBack: () => void }
       delete next[targetId];
       return next;
     });
+    setCheckedTargets(new Set());
     setStatus({ kind: "", text: "" });
   }
 
   function checkAnswers() {
     const allFilled = families.every((family) => placements[family.id]);
     if (!allFilled) {
+      setCheckedTargets(new Set());
       setStatus({ kind: "incorrect", text: "Place a graph in every family tray before checking." });
       return;
     }
     const correctTargets = new Set<FamilyId>();
     families.forEach((family) => { if (placements[family.id] === family.id) correctTargets.add(family.id); });
     setLockedTargets(correctTargets);
-    setStatus(correctTargets.size === families.length ? { kind: "correct", text: `Correct — all ${families.length} graph cards matched.` } : { kind: "incorrect", text: `${correctTargets.size} / ${families.length} correct. Matched cards are locked; adjust the rest.` });
+    setCheckedTargets(new Set(families.map((family) => family.id)));
+    setStatus(correctTargets.size === families.length ? { kind: "correct", text: `Correct — all ${families.length} graph cards matched.` } : { kind: "incorrect", text: `${correctTargets.size} / ${families.length} correct. Green cards are locked; move the red cards and check again.` });
   }
 
-  return <main className="studio-shell match-shell"><aside className="rail rail-session" aria-label="Match the Graph navigation"><button className="brand-mark" onClick={onBack} aria-label="Return to Polynomial Functions"><Sparkles size={23} /></button><div className="rail-line" /><button className="rail-back" onClick={onBack}><ArrowLeft size={18} /><span>Back to Polynomial Functions</span></button></aside><section className="match-canvas"><header className="match-head"><button className="eyebrow-back" onClick={onBack}><ArrowLeft size={14} />Polynomial Functions</button><p className="section-kicker">FUNCTION RECOGNITION · PLAYABLE ACTIVITY</p><h1>Match the graph.</h1><p>Place each graph card below the function family it belongs to. Drag a card, or select it and then choose a tray.</p></header><div className="match-controls"><div className="round-tabs" role="tablist" aria-label="Activity rounds">{roundNames.map((name, index) => <button key={name} className={roundIndex === index ? "active" : ""} onClick={() => switchRound(index)} role="tab" aria-selected={roundIndex === index}>{name}</button>)}</div><div className="match-actions"><button className="graph-check" onClick={checkAnswers}><Check size={16} />Check answer</button><button onClick={() => resetActivity()}><RotateCcw size={15} />Reset</button><button onClick={() => setHintOpen((open) => !open)}><Lightbulb size={15} />{hintOpen ? "Hide hint" : "Show hint"}</button></div></div>{hintOpen && <aside className="graph-hint"><Lightbulb size={17} /><p><strong>Look for a tell:</strong> think about end behavior, symmetry, and domain restrictions. A U-shape, a curve that levels off, or two separate branches each point to a different family.</p></aside>}<p className={`graph-status ${status.kind}`} aria-live="polite">{status.text}</p><section className={`graph-trays round-${roundIndex}`} aria-label="Function family trays">{families.map((family) => { const placedId = placements[family.id]; const placedFamily = placedId ? familyById.get(placedId) : null; const isLocked = lockedTargets.has(family.id); return <div className={`graph-tray ${isLocked ? "locked" : ""}`} key={family.id} onDragOver={(event) => event.preventDefault()} onDrop={(event) => { event.preventDefault(); const id = event.dataTransfer.getData("text/plain") as FamilyId; if (familyById.has(id)) placeCard(id, family.id); }}><h2>{family.name}</h2><button className="graph-dropzone" onClick={() => { if (selectedCard) placeCard(selectedCard, family.id); else if (placedId) returnCardToBank(family.id); }} disabled={isLocked} aria-label={`${placedId ? "Return the placed graph from" : "Place a graph in"} the ${family.name} tray`}>{placedFamily ? <GraphPreview family={placedFamily} /> : <span>{selectedCard ? "Place selected card" : "Drop graph here"}</span>}</button></div>; })}</section><section className="graph-bank"><div className="bank-heading"><p className="section-kicker">GRAPH CARD BANK</p><span>{cardOrder.filter((id) => !placedIds.has(id)).length} cards remaining</span></div><div className="graph-cards">{cardOrder.filter((id) => !placedIds.has(id)).map((id) => { const family = familyById.get(id); if (!family) return null; return <button key={id} className={`graph-card ${selectedCard === id ? "selected" : ""}`} draggable onDragStart={(event) => event.dataTransfer.setData("text/plain", id)} onClick={() => setSelectedCard((current) => current === id ? null : id)} aria-pressed={selectedCard === id}><GraphPreview family={family} /></button>; })}</div></section></section></main>;
+  return <main className="studio-shell match-shell"><aside className="rail rail-session" aria-label="Match the Graph navigation"><button className="brand-mark" onClick={onBack} aria-label="Return to Polynomial Functions"><Sparkles size={23} /></button><div className="rail-line" /><button className="rail-back" onClick={onBack}><ArrowLeft size={18} /><span>Back to Polynomial Functions</span></button></aside><section className="match-canvas"><header className="match-head"><button className="eyebrow-back" onClick={onBack}><ArrowLeft size={14} />Polynomial Functions</button><p className="section-kicker">FUNCTION RECOGNITION · PLAYABLE ACTIVITY</p><h1>Match the graph.</h1><p>Place each graph card below the function family it belongs to. Drag a card, or select it and then choose a tray.</p></header><div className="match-controls"><div className="round-tabs" role="tablist" aria-label="Activity rounds">{roundNames.map((name, index) => <button key={name} className={roundIndex === index ? "active" : ""} onClick={() => switchRound(index)} role="tab" aria-selected={roundIndex === index}>{name}</button>)}</div><div className="match-actions"><button className="graph-check" onClick={checkAnswers}><Check size={16} />Check answer</button><button onClick={() => resetActivity()}><RotateCcw size={15} />Reset</button><button onClick={() => setHintOpen((open) => !open)}><Lightbulb size={15} />{hintOpen ? "Hide hint" : "Show hint"}</button></div></div>{hintOpen && <aside className="graph-hint"><Lightbulb size={17} /><p><strong>Look for a tell:</strong> think about end behavior, symmetry, and domain restrictions. A U-shape, a curve that levels off, or two separate branches each point to a different family.</p></aside>}<p className={`graph-status ${status.kind}`} aria-live="polite">{status.text}</p><section className={`graph-trays round-${roundIndex}`} aria-label="Function family trays">{families.map((family) => { const placedId = placements[family.id]; const placedFamily = placedId ? familyById.get(placedId) : null; const isLocked = lockedTargets.has(family.id); const wasChecked = checkedTargets.has(family.id); const feedback = wasChecked ? (placedId === family.id ? "correct" : "incorrect") : ""; return <div className={`graph-tray ${isLocked ? "locked" : ""} ${feedback}`} key={family.id} onDragOver={(event) => event.preventDefault()} onDrop={(event) => { event.preventDefault(); const id = event.dataTransfer.getData("text/plain") as FamilyId; if (familyById.has(id)) placeCard(id, family.id); }}><div className="tray-heading"><h2>{family.name}</h2>{feedback === "correct" && <span className="graph-feedback correct"><Check size={13} />Correct</span>}{feedback === "incorrect" && <span className="graph-feedback incorrect"><X size={13} />Try again</span>}</div><button className="graph-dropzone" onClick={() => { if (selectedCard) placeCard(selectedCard, family.id); else if (placedId) returnCardToBank(family.id); }} disabled={isLocked} aria-label={`${placedId ? "Return the placed graph from" : "Place a graph in"} the ${family.name} tray`}>{placedFamily ? <GraphPreview family={placedFamily} /> : <span>{selectedCard ? "Place selected card" : "Drop graph here"}</span>}</button></div>; })}</section><section className="graph-bank"><div className="bank-heading"><p className="section-kicker">GRAPH CARD BANK</p><span>{cardOrder.filter((id) => !placedIds.has(id)).length} cards remaining</span></div><div className="graph-cards">{cardOrder.filter((id) => !placedIds.has(id)).map((id) => { const family = familyById.get(id); if (!family) return null; return <button key={id} className={`graph-card ${selectedCard === id ? "selected" : ""}`} draggable onDragStart={(event) => event.dataTransfer.setData("text/plain", id)} onClick={() => setSelectedCard((current) => current === id ? null : id)} aria-pressed={selectedCard === id}><GraphPreview family={family} /></button>; })}</div></section></section></main>;
 }

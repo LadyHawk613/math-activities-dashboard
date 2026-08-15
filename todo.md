@@ -62,3 +62,9 @@
 - [x] Add an activity launch control to the Polynomial Functions list.
 - [x] Verify rounds, graph placement, hints, answer feedback, and reset behavior.
 - [ ] Publish the verified activity to GitHub Pages.
+
+# Graph-match correctness feedback
+
+- [x] Add green feedback for correct graph-to-family placements after checking.
+- [x] Add red feedback for incorrect graph-to-family placements while keeping them revisable.
+- [x] Verify the feedback states and publish the improved activity to GitHub Pages.
