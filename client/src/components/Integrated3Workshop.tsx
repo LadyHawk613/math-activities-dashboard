@@ -4,6 +4,7 @@
  */
 import { ArrowLeft, ArrowRight, BookOpen, Sparkles } from "lucide-react";
 import { useState } from "react";
+import MatchTheGraphActivity from "@/components/MatchTheGraphActivity";
 
 type WorkshopTopic = { title: string; code: string; color: "coral" | "blue" | "yellow" | "teal" };
 type WorkshopShelf = { title: string; note: string; topics: WorkshopTopic[] };
@@ -53,10 +54,14 @@ const polynomialActivities: WorkshopActivity[] = [
   { code: "P.04", title: "Graph Stories", description: "Trace end behavior, turning points, and intercepts to sketch a graph that makes sense.", color: "teal" },
   { code: "P.05", title: "Solve Polynomial Equations", description: "Choose a useful solving strategy and check each solution in context.", color: "coral" },
   { code: "P.06", title: "Model With a Polynomial", description: "Build and interpret a polynomial model from a real-world situation.", color: "yellow" },
+  { code: "P.07", title: "Match the Graph", description: "Match graph cards to their function family by noticing shape, symmetry, and behavior.", color: "blue" },
 ];
 
 export default function Integrated3Workshop({ onBack }: { onBack: () => void }) {
   const [activeTopic, setActiveTopic] = useState<WorkshopTopic | null>(null);
+  const [activeActivity, setActiveActivity] = useState<string | null>(null);
+
+  if (activeActivity === "match-the-graph") return <MatchTheGraphActivity onBack={() => setActiveActivity(null)} />;
 
   if (activeTopic) {
     return (
@@ -77,13 +82,7 @@ export default function Integrated3Workshop({ onBack }: { onBack: () => void }) 
             <section className="polynomial-list" aria-label="Polynomial Functions activity list">
               <div className="list-heading"><div><p className="section-kicker">YOUR FIRST ACTIVITY LIST</p><h2>Six ways in.</h2></div><p>Start with the first activity and move through the ideas in order, or return to any activity when you need another look.</p></div>
               <div className="activity-list-grid">
-                {polynomialActivities.map((activity, index) => (
-                  <article className={`workshop-activity ${activity.color}`} key={activity.code}>
-                    <span className="activity-code">{activity.code}</span><span className="activity-sequence">{String(index + 1).padStart(2, "0")}</span>
-                    <h3>{activity.title}</h3><p>{activity.description}</p>
-                    <span className="activity-note"><BookOpen size={14} />Activity outline ready</span>
-                  </article>
-                ))}
+                {polynomialActivities.map((activity, index) => activity.code === "P.07" ? <button className={`workshop-activity launchable ${activity.color}`} key={activity.code} onClick={() => setActiveActivity("match-the-graph")}><span className="activity-code">{activity.code}</span><span className="activity-sequence">{String(index + 1).padStart(2, "0")}</span><h3>{activity.title}</h3><p>{activity.description}</p><span className="activity-note"><Sparkles size={14} />Launch activity <ArrowRight size={14} /></span></button> : <article className={`workshop-activity ${activity.color}`} key={activity.code}><span className="activity-code">{activity.code}</span><span className="activity-sequence">{String(index + 1).padStart(2, "0")}</span><h3>{activity.title}</h3><p>{activity.description}</p><span className="activity-note"><BookOpen size={14} />Activity outline ready</span></article>)}
               </div>
             </section>
           ) : <section className="activity-empty" aria-label={`${activeTopic.title} activity list`}> 

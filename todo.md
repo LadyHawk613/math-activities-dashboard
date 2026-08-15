@@ -55,3 +55,10 @@
 - [x] Add an initial, ordered Polynomial Functions activity list to the Integrated Math 3 Workshop.
 - [x] Keep the new activity entries separate from unfinished-topic empty states.
 - [x] Verify Polynomial Functions navigation and publish the list to GitHub Pages.
+
+# Match the Graph activity integration
+
+- [x] Adapt the supplied function-family graph-matching activity for the Polynomial Functions Workshop.
+- [x] Add an activity launch control to the Polynomial Functions list.
+- [x] Verify rounds, graph placement, hints, answer feedback, and reset behavior.
+- [ ] Publish the verified activity to GitHub Pages.
