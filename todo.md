@@ -39,3 +39,8 @@
 - [x] Restore the missing Workshop star/compass mark.
 - [x] Verify the corrected desktop and mobile navigation appearance.
 - [ ] Publish the verified interface repair to GitHub Pages.
+
+# Exact subject order correction
+
+- [x] Arrange the subject menu as Algebra, Geometry, Trigonometry, Integrated Math 1, Integrated Math 2, Integrated Math 3, Pre-Calculus, Calculus, and 4th Grade Math.
+- [x] Verify the matching reference order in the running site and publish it to GitHub Pages.
