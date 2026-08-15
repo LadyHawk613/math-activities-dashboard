@@ -32,3 +32,10 @@
 - [x] Reduce the desktop topic-card height to approximately half of its existing size.
 - [x] Fit all three topic shelves within a typical desktop viewport without vertical scrolling.
 - [x] Verify desktop topic readability, selection behavior, and mobile fallback layout.
+
+# Subject menu and Workshop mark
+
+- [x] Reorder the main subject menu from Algebra through Calculus, with 4th Grade Math last.
+- [x] Restore the missing Workshop star/compass mark.
+- [x] Verify the corrected desktop and mobile navigation appearance.
+- [ ] Publish the verified interface repair to GitHub Pages.
