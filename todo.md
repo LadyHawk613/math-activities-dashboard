@@ -9,11 +9,12 @@
 
 - [x] Confirm the target repository is reachable and empty.
 - [x] Add GitHub Pages build configuration and deployment workflow.
-- [ ] Validate the repository-aware production build.
-- [ ] Obtain confirmation before pushing the project to GitHub.
-- [ ] Push the committed project and provide the Pages activation steps.
+- [x] Validate the repository-aware production build.
+- [x] Obtain confirmation before pushing the project to GitHub.
+- [x] Push the committed project and provide the Pages activation steps.
 
 # Deployment correction
 
 - [x] Configure client routing for the GitHub Pages repository subpath.
-- [ ] Rebuild, redeploy, and confirm the live site no longer resolves to the app’s 404 route.
+- [x] Add a resilient dashboard fallback for the GitHub Pages root path.
+- [x] Rebuild, redeploy, and confirm the live site no longer resolves to the app’s 404 route.
