@@ -18,3 +18,11 @@
 - [x] Configure client routing for the GitHub Pages repository subpath.
 - [x] Add a resilient dashboard fallback for the GitHub Pages root path.
 - [x] Rebuild, redeploy, and confirm the live site no longer resolves to the app’s 404 route.
+
+# Integrated Math 3 Workshop
+
+- [x] Add the three-shelf topic structure for the fourteen approved Integrated Math 3 topics.
+- [x] Route Integrated Math 3 from the course selector to its Workshop index rather than a question round.
+- [x] Create topic-specific activity-list screens with a clear future-activity empty state.
+- [x] Verify workshop navigation, topic selection, and mobile presentation.
+- [ ] Publish the verified Workshop update to GitHub Pages.

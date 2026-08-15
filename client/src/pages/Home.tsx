@@ -4,6 +4,7 @@
  */
 import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, BookOpen, Check, ChevronRight, CircleHelp, Compass, Gauge, Home as HomeIcon, Lightbulb, LineChart, Menu, RotateCcw, Sparkles, Star, Trophy, X } from "lucide-react";
+import Integrated3Workshop from "@/components/Integrated3Workshop";
 
 type SectionId = "integrated-1" | "algebra-1" | "pre-calculus" | "integrated-2" | "geometry" | "calculus" | "integrated-3" | "trigonometry" | "grade-4";
 type Choice = number | string;
@@ -101,6 +102,7 @@ export default function Home() {
   const [feedback, setFeedback] = useState<Feedback>(null);
   const [correctInRound, setCorrectInRound] = useState(0);
   const [roundFinished, setRoundFinished] = useState(false);
+  const [integrated3WorkshopOpen, setIntegrated3WorkshopOpen] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const [activityProgress, setActivityProgress] = useState<Record<SectionId, number>>(defaultProgress);
   const [dailyStreak, setDailyStreak] = useState(4);
@@ -112,10 +114,12 @@ export default function Home() {
   useEffect(() => { window.localStorage.setItem("math-hub-course-progress", JSON.stringify(activityProgress)); }, [activityProgress]);
   const mastery = useMemo(() => Math.round(Object.values(activityProgress).reduce((total, value) => total + value, 0) / mathSections.length), [activityProgress]);
 
-  function startSection(section: MathSection) { setSelectedSectionId(section.id); setActiveSection(section); setQuestionIndex(0); setSelectedAnswer(null); setFeedback(null); setCorrectInRound(0); setRoundFinished(false); setMobileNavOpen(false); }
+  function startSection(section: MathSection) { setSelectedSectionId(section.id); setQuestionIndex(0); setSelectedAnswer(null); setFeedback(null); setCorrectInRound(0); setRoundFinished(false); setMobileNavOpen(false); if (section.id === "integrated-3") { setActiveSection(null); setIntegrated3WorkshopOpen(true); return; } setIntegrated3WorkshopOpen(false); setActiveSection(section); }
   function chooseAnswer(choice: Choice) { if (!question || feedback === "correct") return; setSelectedAnswer(choice); if (choice === question.answer) { setFeedback("correct"); setCorrectInRound((current) => current + 1); if (activeSection) setActivityProgress((current) => ({ ...current, [activeSection.id]: Math.min(100, current[activeSection.id] + 3) })); } else setFeedback("incorrect"); }
   function moveForward() { if (!activeSection) return; if (questionIndex === questions.length - 1) { setRoundFinished(true); setDailyStreak((current) => { const next = Math.max(current, 5); window.localStorage.setItem("math-hub-streak", String(next)); return next; }); return; } setQuestionIndex((current) => current + 1); setSelectedAnswer(null); setFeedback(null); }
   function finishRound() { setActiveSection(null); setRoundFinished(false); setQuestionIndex(0); setFeedback(null); }
+
+  if (integrated3WorkshopOpen) return <Integrated3Workshop onBack={() => setIntegrated3WorkshopOpen(false)} />;
 
   if (activeSection && question && !roundFinished) return <main className="studio-shell session-shell"><aside className="rail rail-session" aria-label="Math Activity Hub navigation"><button className="brand-mark" onClick={finishRound} aria-label="Return to section dashboard"><img src={compassMark} alt="" /></button><div className="rail-line" /><button className="rail-back" onClick={finishRound}><ArrowLeft size={18} /><span>Back to {activeSection.title}</span></button></aside><section className="session-canvas"><header className="session-head"><div><p className="section-kicker">{activeSection.eyebrow} · {activeSection.title}</p><h1>{activeSection.activity}</h1></div><div className="round-progress" aria-label={`Question ${questionIndex + 1} of ${questions.length}`}><span>ROUND {questionIndex + 1} / {questions.length}</span><div className="mini-track"><i style={{ width: `${((questionIndex + 1) / questions.length) * 100}%` }} /></div></div></header><div className="question-workbench"><div className="question-notebook"><span className="notebook-tab">THINK IT THROUGH</span><p className="question-visual">{question.visual}</p><h2>{question.prompt}</h2><p className="question-prompt">Which answer makes the pattern true?</p><div className="answer-grid" role="group" aria-label="Answer choices">{question.choices.map((choice, index) => { const isSelected = selectedAnswer === choice; const showCorrect = feedback === "correct" && choice === question.answer; const showIncorrect = feedback === "incorrect" && isSelected; return <button key={String(choice)} className={`answer-choice ${isSelected ? "selected" : ""} ${showCorrect ? "is-correct" : ""} ${showIncorrect ? "is-incorrect" : ""}`} onClick={() => chooseAnswer(choice)} disabled={feedback === "correct"}><span>{String.fromCharCode(65 + index)}</span><strong>{choice}</strong>{showCorrect && <Check size={18} />}{showIncorrect && <X size={18} />}</button>; })}</div></div><aside className={`coach-note ${feedback ?? ""}`} aria-live="polite"><div className="coach-icon"><Lightbulb size={19} /></div>{feedback === null && <><p className="section-kicker">A LITTLE CLUE</p><p>{question.clue}</p></>}{feedback === "incorrect" && <><p className="section-kicker">ALMOST—RETRACE</p><p>{question.clue}</p><button className="text-action" onClick={() => { setSelectedAnswer(null); setFeedback(null); }}><RotateCcw size={14} />Try another route</button></>}{feedback === "correct" && <><p className="section-kicker">THAT’S IT</p><p>{question.explanation}</p><button className="next-button" onClick={moveForward}>{questionIndex === questions.length - 1 ? "See round recap" : "Next challenge"}<ArrowRight size={17} /></button></>}</aside></div></section></main>;
 
