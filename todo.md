@@ -25,4 +25,10 @@
 - [x] Route Integrated Math 3 from the course selector to its Workshop index rather than a question round.
 - [x] Create topic-specific activity-list screens with a clear future-activity empty state.
 - [x] Verify workshop navigation, topic selection, and mobile presentation.
-- [ ] Publish the verified Workshop update to GitHub Pages.
+- [x] Publish the verified Workshop update to GitHub Pages.
+
+# Compact Integrated Math 3 Workshop
+
+- [x] Reduce the desktop topic-card height to approximately half of its existing size.
+- [x] Fit all three topic shelves within a typical desktop viewport without vertical scrolling.
+- [x] Verify desktop topic readability, selection behavior, and mobile fallback layout.
