@@ -4,3 +4,11 @@
 - [x] Map each section to a tailored starter activity and question set.
 - [x] Make section choices update the dashboard and immediately launch the chosen section’s first activity.
 - [x] Verify desktop and mobile selection, feedback, and return-to-dashboard behavior.
+
+# GitHub Pages handoff
+
+- [x] Confirm the target repository is reachable and empty.
+- [x] Add GitHub Pages build configuration and deployment workflow.
+- [ ] Validate the repository-aware production build.
+- [ ] Obtain confirmation before pushing the project to GitHub.
+- [ ] Push the committed project and provide the Pages activation steps.

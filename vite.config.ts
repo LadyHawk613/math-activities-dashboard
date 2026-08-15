@@ -206,6 +206,8 @@ function vitePluginStorageProxy(): Plugin {
 const plugins = [react(), tailwindcss(), jsxLocPlugin(), vitePluginManusRuntime(), vitePluginManusDebugCollector(), vitePluginStorageProxy()];
 
 export default defineConfig({
+  // Tactile Number Studio: use the repository path only when GitHub Pages builds the static site.
+  base: process.env.GITHUB_ACTIONS ? "/math-activities-dashboard/" : "/",
   plugins,
   resolve: {
     alias: {
