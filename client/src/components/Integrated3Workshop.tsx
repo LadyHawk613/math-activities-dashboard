@@ -91,7 +91,6 @@ export default function Integrated3Workshop({ onBack }: { onBack: () => void }) 
               <p>There are no activities in <strong>{activeTopic.title}</strong> yet. When you create a practice activity, it will appear here for students to choose.</p>
               <button className="primary-action" onClick={() => setActiveTopic(null)}>Browse another topic <ArrowRight size={17} /></button>
             </section>}
-          <aside className="topic-margin-note"><Sparkles size={16} /><span>Future practice<br />belongs here.</span></aside>
         </section>
       </main>
     );

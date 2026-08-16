@@ -85,3 +85,9 @@
 
 - [x] Replace the two-line Workshop headline with a smaller single-line sans-serif title.
 - [x] Verify the reclaimed vertical space and publish the heading refinement to GitHub Pages.
+
+# Workshop visual cleanup
+
+- [x] Replace the shelf dash markers with a subtle continuous shadow.
+- [x] Remove other nonfunctional decorative markers from Workshop, topic-list, and activity views.
+- [x] Verify the streamlined styling and publish it to GitHub Pages.
