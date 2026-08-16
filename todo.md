@@ -91,3 +91,9 @@
 - [x] Replace the shelf dash markers with a subtle continuous shadow.
 - [x] Remove other nonfunctional decorative markers from Workshop, topic-list, and activity views.
 - [x] Verify the streamlined styling and publish it to GitHub Pages.
+
+# 3D Workshop shelves
+
+- [x] Add light top planes, textured wood faces, darker undersides, and soft cast shadows to the Workshop shelves.
+- [x] Verify three-dimensional shelf depth without compromising topic-card readability.
+- [x] Publish the dimensional shelf treatment to GitHub Pages.
