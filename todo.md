@@ -97,3 +97,9 @@
 - [x] Add light top planes, textured wood faces, darker undersides, and soft cast shadows to the Workshop shelves.
 - [x] Verify three-dimensional shelf depth without compromising topic-card readability.
 - [x] Publish the dimensional shelf treatment to GitHub Pages.
+
+# Restore flat Workshop shelves
+
+- [x] Remove the dimensional wood shelf treatment and restore the prior flatter rail.
+- [x] Retain only the subtle continuous shadow beneath each shelf.
+- [x] Verify and publish the restored shelf styling to GitHub Pages.
