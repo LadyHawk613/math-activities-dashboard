@@ -74,3 +74,9 @@
 - [x] Replace the white circular Workshop and activity icons with the full Math Activity Hub brand header.
 - [x] Apply one consistent left-rail header treatment across dashboard, Workshop, topic, and playable-activity pages.
 - [x] Verify the matching header and no-white-background treatment, then publish to GitHub Pages.
+
+# Unified graph trays
+
+- [x] Apply the same blue styling to every unfilled graph drop tray.
+- [x] Retain green correct and red incorrect checked-answer states.
+- [x] Verify and publish the unified tray styling to GitHub Pages.
