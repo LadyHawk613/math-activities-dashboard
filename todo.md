@@ -80,3 +80,8 @@
 - [x] Apply the same blue styling to every unfilled graph drop tray.
 - [x] Retain green correct and red incorrect checked-answer states.
 - [x] Verify and publish the unified tray styling to GitHub Pages.
+
+# Compact Workshop title
+
+- [x] Replace the two-line Workshop headline with a smaller single-line sans-serif title.
+- [x] Verify the reclaimed vertical space and publish the heading refinement to GitHub Pages.

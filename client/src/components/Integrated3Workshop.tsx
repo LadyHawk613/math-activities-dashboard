@@ -108,7 +108,7 @@ export default function Integrated3Workshop({ onBack }: { onBack: () => void }) 
         <header className="workshop-head">
           <div>
             <p className="section-kicker">INTEGRATED MATH 3 · WORKSHOP DIRECTORY</p>
-            <h1>Choose a topic.<br /><em>Build your practice.</em></h1>
+            <h1 className="compact-workshop-title">Choose a topic. <em>Build your practice.</em></h1>
           </div>
           <div className="workshop-note"><span className="yellow-dot" /><p>Choose a topic, then choose the practice that helps the next idea click.</p></div>
         </header>
