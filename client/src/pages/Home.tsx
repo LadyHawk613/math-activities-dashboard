@@ -96,7 +96,7 @@ const navItems = [{ label: "Today", icon: HomeIcon }, { label: "Activities", ico
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState<MathSection | null>(null);
-  const [selectedSectionId, setSelectedSectionId] = useState<SectionId>("integrated-1");
+  const [selectedSectionId, setSelectedSectionId] = useState<SectionId | null>(null);
   const [questionIndex, setQuestionIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState<Choice | null>(null);
   const [feedback, setFeedback] = useState<Feedback>(null);

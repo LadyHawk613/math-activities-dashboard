@@ -103,3 +103,24 @@
 - [x] Remove the dimensional wood shelf treatment and restore the prior flatter rail.
 - [x] Retain only the subtle continuous shadow beneath each shelf.
 - [x] Verify and publish the restored shelf styling to GitHub Pages.
+
+# Workshop Builder skill test
+
+- [x] Add a self-contained sample practice activity through the Polynomial Functions Workshop list.
+- [x] Confirm the sample activity appears as a launchable Polynomial Functions card in the preview.
+- [x] Confirm the sample launch control opens its dedicated activity screen.
+- [x] Confirm the sample activity renders a question, choices, clue, and check control.
+- [x] Confirm incorrect answers are revisable and correct answers show green feedback with a next-step control.
+- [x] Verify selection, feedback, reset, and return-to-topic behavior in the preview.
+- [x] Report the skill test result without publishing the sample activity to GitHub Pages.
+
+# Neutral default subject menu
+
+- [x] Remove the default Integrated Math 1 subject selection on homepage load.
+- [x] Preserve normal selected styling only after a student selects a subject.
+- [x] Verify and publish the neutral default menu state to GitHub Pages.
+
+# Preview-only skill-test cleanup
+
+- [x] Remove the temporary Polynomial Quick Check activity and launch card before publication.
+- [x] Confirm the published build contains the neutral menu update but not the preview-only skill test.
